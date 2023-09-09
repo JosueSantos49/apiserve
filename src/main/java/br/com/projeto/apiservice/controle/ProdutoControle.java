@@ -19,7 +19,7 @@ import ch.qos.logback.classic.pattern.Util;
 
 @RestController
 @CrossOrigin(origins = "*")//Porta do front-and que deve ser liberada para comunicacao com a API
-public class Controle {
+public class ProdutoControle {
     
     @Autowired
     private Repositorio acao;
