@@ -1,5 +1,6 @@
 package br.com.projeto.apiservice.controle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class EnderecoControle {
 
+    @Autowired
     private final EnderecoService enderecoService;
 
     @GetMapping("/consulta")
