@@ -20,6 +20,7 @@ public class ApiserviceApplication {
 		SpringApplication.run(ApiserviceApplication.class, args);
 	}
 
+	/*
 	//Bean de exemplo (é executado quando o projeto é iniciado)
 	@Bean
 	CommandLineRunner initDatabase(PessoaRepositorio pessoaRepositorio) {
@@ -33,5 +34,6 @@ public class ApiserviceApplication {
 			pessoaRepositorio.save(p);
 		};
 	}
+	*/
 
 }
