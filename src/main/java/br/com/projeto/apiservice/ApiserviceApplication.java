@@ -14,10 +14,15 @@ import br.com.projeto.apiservice.repositorio.PessoaRepositorio;
 @EnableFeignClients
 @ImportAutoConfiguration({FeignAutoConfiguration.class})
 @SpringBootApplication
-public class ApiserviceApplication {
+public class ApiserviceApplication implements CommandLineRunner{
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiserviceApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+				
 	}
 
 	/*

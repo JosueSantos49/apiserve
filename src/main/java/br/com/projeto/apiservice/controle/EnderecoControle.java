@@ -17,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class EnderecoControle {
 
-    @Autowired
     private final EnderecoService enderecoService;
 
     @GetMapping("/consulta")

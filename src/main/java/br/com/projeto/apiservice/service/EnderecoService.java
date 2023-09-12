@@ -1,5 +1,6 @@
 package br.com.projeto.apiservice.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.projeto.apiservice.feign.EnderecoFeign;
@@ -11,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class EnderecoService {
 
-    private final EnderecoFeign enderecoFeign;
-    
+	private final EnderecoFeign enderecoFeign;
+	    
     public EnderecoResponse executa(EnderecoRequest request){
         return enderecoFeign.buscaEnderecoCep(request.getCep());        
     }
