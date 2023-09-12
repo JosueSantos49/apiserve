@@ -27,6 +27,13 @@ public class ProdutoControle {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepositorio.save(produto));
     }
 
+    @GetMapping("/{codigo}")
+    public ResponseEntity<Produto> findById(@PathVariable("codigo") Long identificador){
+        return produtoRepositorio.findById(identificador)
+            .map(registro -> ResponseEntity.ok(registro))
+            .orElse(ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/")
     public Iterable<Produto> selecionar(){
         return produtoRepositorio.findAll();
