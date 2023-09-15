@@ -18,13 +18,13 @@ import lombok.Setter;
 public class Usuario {
 
 	@Id
-	private String nomeUsuario;
+	private String usuarioNome;
 	
-	private String primeiroNomeUsuario;
+	private String usuarioPrimeiroNome;
 	
-	private String ultimoNomeUsuario;
+	private String usuarioUltimoNome;
 	
-	private String senhaUsuario;
+	private String usuarioSenha;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "USUARIO_ROLE",
