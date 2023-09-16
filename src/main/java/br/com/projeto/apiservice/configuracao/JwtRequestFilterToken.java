@@ -17,6 +17,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 public class JwtRequestFilterToken extends OncePerRequestFilter{
@@ -26,30 +28,34 @@ public class JwtRequestFilterToken extends OncePerRequestFilter{
 	
 	@Autowired
 	private JwtService jwtService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilterToken.class);
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
+				
 		final String header = request.getHeader("Authorization");
-		
-		System.out.println("header: "+header);
+		logger.info("JwtRequestFilterToken doFilterInternal header: {}", header);
 		
 		String jwtToken = null;
 		String usuarioNome = null;		
+		
 		if(header != null && header.startsWith("Bearer ")) {
 			
-			//jwtToken = header.substring(7);
-			jwtToken = header.substring(7).trim();
+			jwtToken = header.substring(7);			
+			//jwtToken = header.substring(7).trim();
+			logger.info("JwtRequestFilterToken doFilterInternal jwtToken: {}", jwtToken);
 			
 			try {
 				
 				usuarioNome = jwtUtil.getUsuarioNomeParaTokem(jwtToken);
+				logger.info("JwtRequestFilterToken doFilterInternal usuarioNome: {}", usuarioNome);
 				
 			} catch (IllegalArgumentException e) {
-				System.out.println("Não foi possível obter o token JWT." + e);
+				logger.error("JwtRequestFilterToken - Não foi possível obter o token JWT: {} ", e.getMessage());
 			} catch (ExpiredJwtException e) {
-				System.out.println("O token Jwt expirou. " + e);
+				logger.error("JwtRequestFilterToken - O token Jwt expirou.: {} ", e.getMessage());
 			}
 			
 		} else {
@@ -76,5 +82,4 @@ public class JwtRequestFilterToken extends OncePerRequestFilter{
 		filterChain.doFilter(request, response);
 		
 	}
-
 }
