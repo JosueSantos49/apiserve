@@ -32,12 +32,12 @@ public class UsuarioControle {
 	@GetMapping({"/paraAdmin"})
 	@PreAuthorize("hasRole('Admin')")
 	public String paraAdmin( ) {
-		return "Este URL só é acessível ao administrador.";
+		return "Esta URL só é acessível ao administrador.";
 	}
 	
 	@GetMapping({"/paraUsuario"})
-	@PreAuthorize("hasRole('User')")
+	@PreAuthorize("hasRole('Usuario')")
 	public String paraUsuario( ) {
-		return "Este URL só é acessível ao Usuário.";
+		return "Esta URL só é acessível ao Usuário.";
 	}
 }

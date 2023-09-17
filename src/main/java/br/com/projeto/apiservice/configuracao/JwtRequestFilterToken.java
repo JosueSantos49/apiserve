@@ -35,22 +35,20 @@ public class JwtRequestFilterToken extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 				
-		final String header = request.getHeader("Authorization");
-		logger.info("JwtRequestFilterToken doFilterInternal header: {}", header);
+		var authorizationHeader = request.getHeader("Authorization");
 		
 		String jwtToken = null;
-		String usuarioNome = null;		
+		String usuarioNome = null;	
 		
-		if(header != null && header.startsWith("Bearer ")) {
+		if(authorizationHeader != null) {
 			
-			jwtToken = header.substring(7);			
-			//jwtToken = header.substring(7).trim();
-			logger.info("JwtRequestFilterToken doFilterInternal jwtToken: {}", jwtToken);
+			jwtToken = authorizationHeader.replace("Bearer ", "");			
+			logger.info("doFilterInternal jwtToken: {}", jwtToken);
 			
 			try {
 				
 				usuarioNome = jwtUtil.getUsuarioNomeParaTokem(jwtToken);
-				logger.info("JwtRequestFilterToken doFilterInternal usuarioNome: {}", usuarioNome);
+				logger.info("doFilterInternal usuarioNome: {}", usuarioNome);
 				
 			} catch (IllegalArgumentException e) {
 				logger.error("JwtRequestFilterToken - Não foi possível obter o token JWT: {} ", e.getMessage());

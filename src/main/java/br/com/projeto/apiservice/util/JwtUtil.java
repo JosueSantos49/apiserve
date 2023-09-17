@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import javax.crypto.SecretKey;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 @Component
@@ -33,7 +30,6 @@ public class JwtUtil {
 		
 	public String getUsuarioNomeParaTokem(String toke) {
 		
-		logger.info("JwtUtil: {getUsuarioNomeParaTokem}");
 		return getClaimParaToken(toke, Claims::getSubject);
 		
 	}
@@ -48,15 +44,12 @@ public class JwtUtil {
 	
 	private Claims getAllClaimsParaToken(String token) {	
 		
-		SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));		
-		logger.info("JwtUtil getAllClaimsParaToken secret: {}", secret);
+		byte[] keyBytesSecret = this.jwtSecret.getBytes(StandardCharsets.UTF_8);
 		
 		return Jwts.parserBuilder()
-				.setSigningKey(secret)
+				.setSigningKey(keyBytesSecret)
 				.build()
 				.parseClaimsJws(token)
-				//.parseClaimsJws(token.replace("Bearer ", ""))
-				//.parseClaimsJws(token.replace("{", "").replace("}",""))
 				.getBody();		
 	}
 	
