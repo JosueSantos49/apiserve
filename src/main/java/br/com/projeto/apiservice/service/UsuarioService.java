@@ -24,10 +24,6 @@ public class UsuarioService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	public Usuario registrarNovoUsuario(Usuario usuario) {
-		return usuarioDao.save(usuario);
-	}
-	
 	public void initRoleUsuario() {
 		Role adminRole = new Role();
 		adminRole.setRoleNome("Admin");
@@ -49,6 +45,7 @@ public class UsuarioService {
 		adminUsuario.setRole(adminRoles);
 		usuarioDao.save(adminUsuario);
 		
+		/**/
 		Usuario usuario = new Usuario();
 		usuario.setUsuarioPrimeiroNome("raj");
 		usuario.setUsuarioUltimoNome("sharma");
@@ -57,7 +54,20 @@ public class UsuarioService {
 		Set<Role> usuarioRoles = new HashSet<>();
 		usuarioRoles.add(usuarioRole);
 		usuario.setRole(usuarioRoles);
-		usuarioDao.save(usuario);		
+		usuarioDao.save(usuario);	
+			
+	}
+	
+	public Usuario registrarNovoUsuario(Usuario usuario) {
+		
+		Role role = roleDao.findById("Usuario").get();
+		
+		Set<Role> usuarioRoles = new HashSet<>();
+		usuarioRoles.add(role);
+		usuario.setRole(usuarioRoles);		
+		usuario.setUsuarioSenha(getEncodedPassword(usuario.getUsuarioSenha()));
+		
+		return usuarioDao.save(usuario);
 	}
 	
 	public String getEncodedPassword(String senha) {

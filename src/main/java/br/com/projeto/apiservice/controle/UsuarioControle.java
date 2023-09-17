@@ -36,7 +36,7 @@ public class UsuarioControle {
 	}
 	
 	@GetMapping({"/paraUsuario"})
-	@PreAuthorize("hasRole('Usuario')")
+	@PreAuthorize("hasAnyRole('Admin','Usuario')")
 	public String paraUsuario( ) {
 		return "Esta URL só é acessível ao Usuário.";
 	}

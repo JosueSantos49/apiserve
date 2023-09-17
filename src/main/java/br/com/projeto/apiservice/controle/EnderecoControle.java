@@ -2,6 +2,7 @@ package br.com.projeto.apiservice.controle;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ public class EnderecoControle {
     private final EnderecoService enderecoService;
 
     @GetMapping("/consulta")
+    @PreAuthorize("hasAnyRole('Admin','Usuario')")
     public ResponseEntity consultaCep(@RequestBody EnderecoRequest enderecoRequest){
         return ResponseEntity.ok(enderecoService.executa(enderecoRequest));
         //System.out.println(enderecoRequest.getCep());        

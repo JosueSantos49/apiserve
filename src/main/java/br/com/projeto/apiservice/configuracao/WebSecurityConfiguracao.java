@@ -46,7 +46,7 @@ public class WebSecurityConfiguracao{
         .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests( request -> 
         	request.requestMatchers("/autenticacao").permitAll()
-        			.requestMatchers("/registerNewUser").permitAll()        			
+        			.requestMatchers("/registrarNovoUsuario").permitAll()        			
         			.anyRequest().authenticated()        				
         );
 		
