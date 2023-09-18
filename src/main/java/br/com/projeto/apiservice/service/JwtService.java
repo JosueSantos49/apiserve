@@ -3,6 +3,8 @@ package br.com.projeto.apiservice.service;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,6 +25,8 @@ import br.com.projeto.apiservice.util.JwtUtil;
 @Service
 public class JwtService implements UserDetailsService{
 
+	private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
+
 	@Autowired
 	private UsuarioDao usuarioDao;
 	
@@ -33,19 +37,30 @@ public class JwtService implements UserDetailsService{
 	private AuthenticationManager authenticationManager;
 	
 	public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
+		
 		String usuarioNome = jwtRequest.getUsuarioNome();
 		String usuarioSenha = jwtRequest.getUsuarioSenha();
-		autenticacao(usuarioNome, usuarioSenha);
 		
-		UserDetails userDetails = loadUserByUsername(usuarioNome);
-		String newGeneratedToken =  jwtUtil.generateToken(userDetails);
+		if(usuarioNome != null && usuarioSenha != null) {
+			
+			autenticacao(usuarioNome, usuarioSenha);	
+			logger.info("createJwtToken {}" + usuarioSenha + usuarioSenha);
+			
+		}
 		
-		Usuario usuario = usuarioDao.findById(usuarioNome).get();
-		return new JwtResponse(usuario, newGeneratedToken);
+		UserDetails userDetails = loadUserByUsername(usuarioNome);	
+		
+		String newGeneratedToken =  jwtUtil.generateToken(userDetails);		
+		
+		Usuario usuario = usuarioDao.findById(usuarioNome).get();				
+
+		return new JwtResponse(usuario, newGeneratedToken);		
+		
 	}
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {		
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {	
+		
 		Usuario usuario = usuarioDao.findById(username).get();
 		
 		if(usuario != null) {
@@ -60,6 +75,7 @@ public class JwtService implements UserDetailsService{
 	}
 	
 	private Set<SimpleGrantedAuthority> getAutorizacao(Usuario usuario) {
+		
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 		
 		usuario.getRole().forEach(role -> {
@@ -74,9 +90,13 @@ public class JwtService implements UserDetailsService{
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuarioNome, usuarioSenha));		
 			
 		} catch (DisabledException e) {
-			throw new Exception("O usuário está desativado.");
+			
+			throw new Exception("O usuário está desativado."+e);
+			
 		} catch (BadCredentialsException e) {
-			throw new Exception("Credenciais incorretas do usuário.");
+			
+			throw new Exception("Credenciais incorretas do usuário."+e);
+			
 		}
 	}
 

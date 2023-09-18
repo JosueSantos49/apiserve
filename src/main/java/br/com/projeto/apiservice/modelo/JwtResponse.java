@@ -1,10 +1,5 @@
 package br.com.projeto.apiservice.modelo;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class JwtResponse {
 
 	private Usuario usuario;
@@ -14,5 +9,23 @@ public class JwtResponse {
         this.usuario = usuario;
         this.jwtToken = jwtToken;
     }
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getJwtToken() {
+		return jwtToken;
+	}
+
+	public void setJwtToken(String jwtToken) {
+		this.jwtToken = jwtToken;
+	}
+	
+	
 	
 }

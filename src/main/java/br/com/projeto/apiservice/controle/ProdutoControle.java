@@ -23,7 +23,8 @@ public class ProdutoControle {
     @Autowired
     private ProdutoRepositorio produtoRepositorio;
 
-    @PostMapping("/")
+    @PostMapping("/criar-produto")
+    @PreAuthorize("hasAnyRole('Admin','Usuario')")
     public ResponseEntity<Produto> criar(@RequestBody Produto produto){
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepositorio.save(produto));
     }
@@ -35,7 +36,7 @@ public class ProdutoControle {
             .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/")
+    @GetMapping("/lista-produtos")
     @PreAuthorize("hasAnyRole('Admin','Usuario')")
     public Iterable<Produto> selecionar(){
         return produtoRepositorio.findAll();
