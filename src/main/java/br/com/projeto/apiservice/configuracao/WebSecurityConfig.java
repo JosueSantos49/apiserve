@@ -18,10 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableMethodSecurity
-public class WebSecurityConfiguracao{
+public class WebSecurityConfig{
 	
 	@Autowired
-    private JwtAuthenticacaoEntryPoint jwtAuthenticacaoEntryPoint;
+    private AuthEntryPointJwt jwtAuthenticacaoEntryPoint;
 
     @Autowired
     private JwtRequestFilterToken jwtRequestFilterToken;
@@ -45,7 +45,7 @@ public class WebSecurityConfiguracao{
 		.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticacaoEntryPoint))
         .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests( request -> 
-        	request.requestMatchers("/autenticacao").permitAll()
+        	request.requestMatchers("/api/auth/**").permitAll()
         			.requestMatchers("/registrarNovoUsuario").permitAll()        			
         			.anyRequest().authenticated()        				
         );

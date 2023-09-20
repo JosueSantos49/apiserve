@@ -6,14 +6,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projeto.apiservice.modelo.Usuario;
 import br.com.projeto.apiservice.service.UsuarioService;
 import jakarta.annotation.PostConstruct;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/auth")
 public class UsuarioControle {
 	
 	@Autowired

@@ -16,10 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.projeto.apiservice.dao.UsuarioDao;
-import br.com.projeto.apiservice.modelo.JwtRequest;
-import br.com.projeto.apiservice.modelo.JwtResponse;
 import br.com.projeto.apiservice.modelo.Usuario;
+import br.com.projeto.apiservice.repositorio.UsuarioRepositorio;
+import br.com.projeto.apiservice.request.JwtRequest;
+import br.com.projeto.apiservice.response.JwtResponse;
 import br.com.projeto.apiservice.util.JwtUtil;
 
 @Service
@@ -28,7 +28,7 @@ public class JwtService implements UserDetailsService{
 	private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
 
 	@Autowired
-	private UsuarioDao usuarioDao;
+	private UsuarioRepositorio usuarioDao;
 	
 	@Autowired
 	private JwtUtil jwtUtil;
@@ -41,11 +41,8 @@ public class JwtService implements UserDetailsService{
 		String usuarioNome = jwtRequest.getUsuarioNome();
 		String usuarioSenha = jwtRequest.getUsuarioSenha();
 		
-		if(usuarioNome != null && usuarioSenha != null) {
-			
-			autenticacao(usuarioNome, usuarioSenha);	
-			logger.info("createJwtToken {}" + usuarioSenha + usuarioSenha);
-			
+		if(usuarioNome != null && usuarioSenha != null) {			
+			autenticacao(usuarioNome, usuarioSenha);			
 		}
 		
 		UserDetails userDetails = loadUserByUsername(usuarioNome);	

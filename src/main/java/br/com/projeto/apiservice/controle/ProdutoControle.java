@@ -11,20 +11,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projeto.apiservice.modelo.Produto;
 import br.com.projeto.apiservice.repositorio.ProdutoRepositorio;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin(origins = "*")//Porta do front-and que deve ser liberada para comunicacao com a API
+@RequestMapping("/api/auth")
 public class ProdutoControle {
     
     @Autowired
     private ProdutoRepositorio produtoRepositorio;
 
     @PostMapping("/criar-produto")
-    @PreAuthorize("hasAnyRole('Admin','Usuario')")
+    @PreAuthorize("hasAnyRole('Admin')")
     public ResponseEntity<Produto> criar(@RequestBody Produto produto){
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepositorio.save(produto));
     }

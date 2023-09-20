@@ -1,4 +1,4 @@
-package br.com.projeto.apiservice.modelo;
+package br.com.projeto.apiservice.request;
 
 import lombok.Getter;
 import lombok.Setter;

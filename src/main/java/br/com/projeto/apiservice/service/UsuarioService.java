@@ -7,19 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.projeto.apiservice.dao.RoleDao;
-import br.com.projeto.apiservice.dao.UsuarioDao;
 import br.com.projeto.apiservice.modelo.Role;
 import br.com.projeto.apiservice.modelo.Usuario;
+import br.com.projeto.apiservice.repositorio.RoleRepositorio;
+import br.com.projeto.apiservice.repositorio.UsuarioRepositorio;
 
 @Service
 public class UsuarioService {
 
 	@Autowired
-	private UsuarioDao usuarioDao;
+	private UsuarioRepositorio usuarioDao;
 	
 	@Autowired
-	private RoleDao roleDao;
+	private RoleRepositorio roleDao;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;

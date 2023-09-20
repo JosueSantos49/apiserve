@@ -1,15 +1,18 @@
-package br.com.projeto.apiservice.modelo;
+package br.com.projeto.apiservice.response;
+
+import br.com.projeto.apiservice.modelo.Usuario;
 
 public class JwtResponse {
 
 	private Usuario usuario;
 	private String jwtToken;
 	
+	//Original
 	public JwtResponse(Usuario usuario, String jwtToken) {
         this.usuario = usuario;
         this.jwtToken = jwtToken;
     }
-
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -25,7 +28,6 @@ public class JwtResponse {
 	public void setJwtToken(String jwtToken) {
 		this.jwtToken = jwtToken;
 	}
-	
-	
+
 	
 }
