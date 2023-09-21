@@ -30,8 +30,9 @@ public class ProdutoControle {
     public ResponseEntity<Produto> criar(@RequestBody Produto produto){
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepositorio.save(produto));
     }
-
+    
     @GetMapping("/{codigo}")
+    @PreAuthorize("hasAnyRole('Admin')")
     public ResponseEntity<Produto> findById(@PathVariable("codigo") Long identificador){
         return produtoRepositorio.findById(identificador)
             .map(registro -> ResponseEntity.ok(registro))
@@ -44,9 +45,18 @@ public class ProdutoControle {
         return produtoRepositorio.findAll();
     }
 
-    @PutMapping("/")    
-    public Produto editar(@RequestBody Produto produto){
-        return produtoRepositorio.save(produto);
+    @PutMapping("/{codigo}")
+    @PreAuthorize("hasRole('Admin')")
+    public ResponseEntity<Produto> editar(@PathVariable Long codigo, @RequestBody Produto produto){
+        return produtoRepositorio.findById(codigo)
+        		.map(registroEncontrado -> {
+        			registroEncontrado.setTitulo(produto.getTitulo());
+        			registroEncontrado.setPreco(produto.getPreco());
+        			registroEncontrado.setQuantidade(produto.getQuantidade());
+        			Produto editar = produtoRepositorio.save(registroEncontrado);
+        			return ResponseEntity.ok().body(editar);
+        		})
+        		.orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{codigo}")
