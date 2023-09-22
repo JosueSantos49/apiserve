@@ -1,6 +1,7 @@
 package br.com.projeto.apiservice.controle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties.Build;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projeto.apiservice.modelo.Produto;
 import br.com.projeto.apiservice.repositorio.ProdutoRepositorio;
+import lombok.AllArgsConstructor;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@AllArgsConstructor
 public class ProdutoControle {
     
     @Autowired
@@ -61,8 +64,13 @@ public class ProdutoControle {
 
     @DeleteMapping("/{codigo}")
     @PreAuthorize("hasRole('Admin')")
-    public void remover(@PathVariable long codigo){
-        produtoRepositorio.deleteById(codigo);
+    public ResponseEntity<Void> remover(@PathVariable long codigo){
+    	return produtoRepositorio.findById(codigo)
+        		.map(registroEncontrado -> {
+        			produtoRepositorio.deleteById(codigo);
+        			return ResponseEntity.noContent().<Void>build();
+        		})
+        		.orElse(ResponseEntity.notFound().build());
     }
    
 }
