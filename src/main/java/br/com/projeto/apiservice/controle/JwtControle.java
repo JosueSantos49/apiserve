@@ -14,7 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,6 @@ import br.com.projeto.apiservice.service.UsuarioDetailsImpl;
 import br.com.projeto.apiservice.util.JwtUtil;
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class JwtControle {
@@ -51,7 +49,7 @@ public class JwtControle {
 	@Autowired
 	private JwtService jwtService;
 	
-	@PostMapping({"/entrar"})
+	@PostMapping({"/entrar"})		
 	public JwtResponse createJwtToken(@RequestBody JwtRequest jwtRequest) throws Exception{
 		//return jwtService.createJwtToken(jwtRequest);
 		

@@ -4,16 +4,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-
-import br.com.projeto.apiservice.modelo.Pessoa;
-import br.com.projeto.apiservice.repositorio.PessoaRepositorio;
+import org.springframework.context.annotation.ComponentScan;
 
 @EnableFeignClients
 @ImportAutoConfiguration({FeignAutoConfiguration.class})
+//@EntityScan( basePackages = {"br.com.projeto.apiservice.*"} )
+//@SpringBootApplication( scanBasePackages = {"br.com.projeto.apiservice.*"} )
+//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @SpringBootApplication
+//@ComponentScan( basePackages = { "br.com.projeto.apiservice.service.ProdutoService" } )
 public class ApiserviceApplication implements CommandLineRunner{
 
 	public static void main(String[] args) {
@@ -24,7 +26,7 @@ public class ApiserviceApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 				
 	}
-
+	
 	/*
 	//Bean de exemplo (é executado quando o projeto é iniciado)
 	@Bean

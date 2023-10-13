@@ -1,11 +1,10 @@
 package br.com.projeto.apiservice.controle;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,15 +20,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@Component
 @Validated
 @RestController
 @RequestMapping("/api/auth")
 //@AllArgsConstructor
 public class ProdutoControle {
-    
-    @Autowired
-    private final ProdutoService produtoService;  
+        
+    private ProdutoService produtoService;  
     
     public ProdutoControle(ProdutoService produtoService) {				
 		this.produtoService = produtoService;
@@ -43,10 +41,8 @@ public class ProdutoControle {
     
     @GetMapping("/{codigo}")
     @PreAuthorize("hasAnyRole('Admin')")
-    public ResponseEntity<Produto> findById(@PathVariable("codigo") @NotNull @Positive Long identificador){
-        return produtoService.findById(identificador)
-            .map(registro -> ResponseEntity.ok(registro))
-            .orElse(ResponseEntity.notFound().build());
+    public Produto findById(@PathVariable("codigo") @NotNull @Positive Long identificador){
+        return produtoService.findById(identificador);
     }
     
 	@PostMapping("/criar-produto")

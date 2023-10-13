@@ -2,20 +2,23 @@ package br.com.projeto.apiservice.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import br.com.projeto.apiservice.excecao.RegistroNaoEncontradoExcecao;
 import br.com.projeto.apiservice.modelo.Produto;
 import br.com.projeto.apiservice.repositorio.ProdutoRepositorio;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-@Validated
 @Service
+@Validated
 public class ProdutoService {
 
+	@Autowired
 	private ProdutoRepositorio produtoRepositorio;
 
 	public ProdutoService(ProdutoRepositorio produtoRepositorio) {		
@@ -26,8 +29,8 @@ public class ProdutoService {
         return produtoRepositorio.findAll();
     }
     
-    public Optional<Produto> findById(@PathVariable("codigo") @NotNull @Positive Long identificador){
-        return produtoRepositorio.findById(identificador);
+    public Produto findById(@PathVariable("codigo") @NotNull @Positive Long identificador){
+        return produtoRepositorio.findById(identificador).orElseThrow(() -> new RegistroNaoEncontradoExcecao(identificador));
     }
     
     public Produto criar(@Valid Produto produto){
