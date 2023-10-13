@@ -1,7 +1,5 @@
 package br.com.projeto.apiservice.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -37,24 +35,19 @@ public class ProdutoService {
         return produtoRepositorio.save(produto);
     }
     
-    public Optional<Produto> editar(@NotNull @Positive Long codigo, @Valid Produto produto){
+    public Produto editar(@NotNull @Positive Long codigo, @Valid Produto produto){
         return produtoRepositorio.findById(codigo)
         		.map(registroEncontrado -> {
         			registroEncontrado.setTitulo(produto.getTitulo());
         			registroEncontrado.setPreco(produto.getPreco());
         			registroEncontrado.setQuantidade(produto.getQuantidade());
-        			return produtoRepositorio.save(registroEncontrado);
-        			
-        		});
+        			return produtoRepositorio.save(registroEncontrado);        			
+        		}).orElseThrow(() -> new RegistroNaoEncontradoExcecao(codigo));
     }
     
-    public boolean remover(@PathVariable @NotNull @Positive long codigo){
-    	return produtoRepositorio.findById(codigo)
-        		.map(registroEncontrado -> {
-        			produtoRepositorio.deleteById(codigo);
-        			return true;
-        		})
-        		.orElse(false);
+    public void remover(@PathVariable @NotNull @Positive long codigo){    	
+    	produtoRepositorio.delete(produtoRepositorio.findById(codigo)
+    				.orElseThrow(() -> new RegistroNaoEncontradoExcecao(codigo)));   	
     }
 	
 }

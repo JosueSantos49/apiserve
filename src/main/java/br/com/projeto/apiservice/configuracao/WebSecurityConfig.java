@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,7 +30,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig{
 	
 	private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
-		
+			
 	@Autowired
     private AuthEntryPointJwt jwtAuthenticacaoEntryPoint;
 
@@ -54,7 +53,7 @@ public class WebSecurityConfig{
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{        
 		httpSecurity
-		.cors(Customizer.withDefaults()) //Por padrao use um bean com o nome de corsConfiguracao
+		.cors(Customizer.withDefaults()) //Por padrao use um bean com o nome de corsConfigurationSource
 		.csrf(csrf -> csrf.disable())
 		.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticacaoEntryPoint))
         .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

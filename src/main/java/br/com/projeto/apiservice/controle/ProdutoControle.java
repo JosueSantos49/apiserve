@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.projeto.apiservice.modelo.Produto;
@@ -47,25 +48,22 @@ public class ProdutoControle {
     
 	@PostMapping("/criar-produto")
     @PreAuthorize("hasAnyRole('Admin')")
-    public ResponseEntity<Produto> criar(@RequestBody @Valid Produto produto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.criar(produto));
+	@ResponseStatus(code = HttpStatus.CREATED)
+    public Produto criar(@RequestBody @Valid Produto produto){
+        return produtoService.criar(produto);
     }           
 
     @PutMapping("/{codigo}")
     @PreAuthorize("hasRole('Admin')")
-    public ResponseEntity<Produto> editar(@PathVariable Long codigo, @RequestBody @Valid Produto produto){
-        return produtoService.editar(codigo, produto)
-        		.map(registroEncontrado -> ResponseEntity.ok().body(registroEncontrado))
-        		.orElse(ResponseEntity.notFound().build());
+    public Produto editar(@PathVariable Long codigo, @RequestBody @Valid Produto produto){
+        return produtoService.editar(codigo, produto);
     }
 
     @DeleteMapping("/{codigo}")
     @PreAuthorize("hasRole('Admin')")
-    public ResponseEntity<Void> remover(@PathVariable @NotNull @Positive long codigo){
-    	if(produtoService.remover(codigo)) {
-    		return ResponseEntity.noContent().<Void>build();
-    	}
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable @NotNull @Positive long codigo){
+    	produtoService.remover(codigo);
     }
    
 }
