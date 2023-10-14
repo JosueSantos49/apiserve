@@ -4,7 +4,10 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
+import br.com.projeto.apiservice.enums.Status;
+import br.com.projeto.apiservice.enums.converters.StatusConverter;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,8 +43,7 @@ public class Produto {
     private int quantidade;
     
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "Ativo|Inativo")
     @Column(length = 10, nullable = false)
-    private String status = "Ativo";
+    @Convert(converter = StatusConverter.class)
+    private Status status;
 }

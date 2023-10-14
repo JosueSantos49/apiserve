@@ -3,6 +3,7 @@ package br.com.projeto.apiservice.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import br.com.projeto.apiservice.dto.ProdutoDTO;
+import br.com.projeto.apiservice.enums.Status;
 import br.com.projeto.apiservice.modelo.Produto;
 
 @Component
@@ -31,7 +32,7 @@ public class ProdutoMapper {
 		produto.setTitulo(produtoDTO.titulo());
 		produto.setPreco(produtoDTO.preco());
 		produto.setQuantidade(produtoDTO.quantidade());
-		produto.setStatus("Ativo");
+		produto.setStatus(Status.ATIVO);
 		
 		return produto;
 	}
