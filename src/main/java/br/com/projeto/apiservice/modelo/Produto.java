@@ -45,5 +45,5 @@ public class Produto {
     @NotNull
     @Column(length = 10, nullable = false)
     @Convert(converter = StatusConverter.class)
-    private Status status;
+    private Status status = Status.ATIVO;
 }
