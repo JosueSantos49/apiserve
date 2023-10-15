@@ -43,7 +43,7 @@ public class ProdutoControle {
     }
     
     @GetMapping("/{codigo}")
-    @PreAuthorize("hasAnyRole('Admin')")
+    @PreAuthorize("hasAnyRole('Admin','Usuario')")
     public ProdutoDTO findById(@PathVariable("codigo") @NotNull @Positive Long identificador){
         return produtoService.findById(identificador);
     }

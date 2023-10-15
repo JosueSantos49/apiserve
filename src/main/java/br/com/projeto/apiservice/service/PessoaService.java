@@ -12,6 +12,7 @@ import br.com.projeto.apiservice.dto.PessoaDTO;
 import br.com.projeto.apiservice.dto.mapper.PessoaMapper;
 import br.com.projeto.apiservice.excecao.RegistroNaoEncontradoExcecao;
 import br.com.projeto.apiservice.repositorio.PessoaRepositorio;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -42,6 +43,8 @@ public class PessoaService {
 				.orElseThrow(() -> new RegistroNaoEncontradoExcecao(identificador));
 	}
 	
-	
+	public PessoaDTO criar(@Valid @NotNull PessoaDTO pessoa) {
+		return pessoaMapper.toDTO(pessoaRepositorio.save(pessoaMapper.toEntity(pessoa)));
+	}
 	
 }
