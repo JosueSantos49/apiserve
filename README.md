@@ -6,6 +6,7 @@ Api criada com:
 - JPA
 - MSQL
 - Lombok
+- Spring Tool Suit 4 Launcher
   
 -> Spring Security com JWT(JSON Web Token) Visão geral:
 
@@ -42,6 +43,16 @@ Api criada com:
 -> Também temos application.properties para configurar Spring Datasource, Spring Data JPA e propriedades do aplicativo (como string secreta JWT ou tempo de expiração do token).
 
 -> Importante verificar a versão das dependências compatíveis e adicionar no pom.xml.
+
+-> Configurar Spring Datasource, JPA, propriedades do aplicativo
+- Na pasta src/main/resources , abra application.properties e adicione as configurações.
+
+- spring.datasource.url: para banco de dados
+- spring.datasource.username
+- spring.datasource.password (propriedades são as mesmas da instalação do seu banco de dados)
+- Spring Boot usa Hibernate para implementação JPA, configuramos MYSQL para banco de dados
+- spring.jpa.hibernate.ddl-auto é usado para inicialização do banco de dados
+- Definimos o valor como UPDATE valor para que uma tabela seja criada automaticamente no banco de dados correspondente ao modelo de dados definido. Qualquer alteração no modelo também acionará uma atualização na tabela. Para produção, esta propriedade deve ser validate.
 
 
 
