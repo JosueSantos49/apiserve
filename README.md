@@ -54,5 +54,10 @@ Api criada com:
 - spring.jpa.hibernate.ddl-auto é usado para inicialização do banco de dados
 - Definimos o valor como UPDATE valor para que uma tabela seja criada automaticamente no banco de dados correspondente ao modelo de dados definido. Qualquer alteração no modelo também acionará uma atualização na tabela. Para produção, esta propriedade deve ser validate.
 
+-> Modelos
+- Teremos 3 tabelas no banco de dados: usuarios , roles e usuarios_roles para relacionamento muitos-para-muitos.
+- Implementar repositórios: cada modelo acima precisa de um repositório para persistir e acessar dados. No pacote de repositório, criado 2 repositórios. Repositório de usuário e Role Repositório.
+
+
 
 
