@@ -6,8 +6,9 @@
 - MSQL  
 - Lombok (minimizar o uso de código repetitivo)  
 - Spring Tool Suit 4 Launcher
+- Postman
 
-- Interface com a responsabilidade de conectar duas plataformas, permitindo que se comuniquem com agilidade a trocar informações. O repositório API-FRONT consome este serviço através de ENDPOINT com permissão da configuração do Cors.
+- Interface com a responsabilidade de conectar duas plataformas, permitindo que se comuniquem com agilidade a trocar informações. No repositório API-FRONT criado com Angular 15 pode ser usado para consumir este serviço do Backend através de ENDPOINT com permissão da configuração do Cors o usuário com autorização deverá fazer login no sistema para uma operação de CRUD.
 - Métodos: GET, PUT, POST, DELETE, OPTIONS, HEAD
 - Cabeçalhos: Origin, X-Requested-With, Content-Type, Authorization, Accept, no-auth
 
