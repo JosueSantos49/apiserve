@@ -14,7 +14,7 @@
 
 - Padrão de projetos: Data Transfer Object - DTO, Transfer Object para o transporte de dados entre diferentes componentes de um sistema, diferentes instâncias ou processos de um sistema distribuído ou diferentes sistemas via serialização.
   
--> Spring Security com JWT(JSON Web Token) Visão geral:
+-> Spring Security com JWT(JSON Web Token) versão 0.11.5 Visão geral:
 
 - O usuário ao fazer login é gerado um token de autenticação. Pela função do Usuário(administrador, usuário), autorizamos o Usuário a acessar os recursos. 
 - WebSecurityConfig é o ponto crucial da implementação de segurança. Configura cors, csrf, gerenciamento de sessão, regras para recursos protegidos. 
