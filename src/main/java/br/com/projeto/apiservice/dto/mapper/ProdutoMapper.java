@@ -11,7 +11,7 @@ public class ProdutoMapper {
 
 	public ProdutoDTO toDTO(Produto produto) {
 		
-		//Se for null nao retornar instancia para nao dar nullPointExeption
+		//Se for null nao retornar instancia para nao dar nullPointExeption.
 		if(produto == null) {
 			return null;
 		}
