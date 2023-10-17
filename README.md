@@ -1,11 +1,14 @@
 # apiserve
 Api criada com: 
-- Java 17 
-- Spring boot: v3.1.4
-- Maven
-- JPA
-- MSQL
-- Lombok
+
+-> Java 17
+- Padrão de projetos (Data Transfer Object - DTO) Transfer Object para o transporte de dados entre diferentes componentes de um sistema, diferentes instâncias ou processos de um sistema distribuído ou diferentes sistemas via serialização.
+
+- Spring boot: v3.1.4  
+- Maven  
+- JPA  
+- MSQL  
+- Lombok (minimizar o uso de código repetitivo)  
 - Spring Tool Suit 4 Launcher
   
 -> Spring Security com JWT(JSON Web Token) Visão geral:
