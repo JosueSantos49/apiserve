@@ -1,11 +1,11 @@
 # apiserve
 Api criada com: 
--> Java 17 
--> Spring boot: v3.1.4
--> Maven
--> JPA
--> MSQL
--> Lombok
+- Java 17 
+- Spring boot: v3.1.4
+- Maven
+- JPA
+- MSQL
+- Lombok
   
 -> Spring Security com JWT(JSON Web Token) Visão geral:
 
@@ -22,8 +22,26 @@ Api criada com:
 - AuthController lida com solicitações de inscrição/login.
 - TestController tem acesso a métodos de recursos protegidos com validações baseadas em funções.
 
+-> segurança : configuramos Spring Security e implementamos objetos de segurança aqui.
+- WebSecurityConfig
+- UserDetailsService Implimplementos UserDetailsService
+- UserDetails Implimplementos UserDetails
+- AuthEntryPointJwt implementos AuthenticationEntryPoint
+- AuthTokenFilter estende OncePerRequestFilter
+- JwtUtils fornece métodos para gerar, analisar e validar JWT
 
+-> controladores lidam com solicitações de inscrição/login e solicitações autorizadas.
+- AuthController: @PostMapping('/entrar'), @PostMapping('/entrar-error-no-cast')
 
+-> O repositório possui interfaces que estendem o Spring Data JPA JpaRepository para interagir com o banco de dados.
+- UsuarioRepositorio estende JpaRepository<User, Long>
+- RoleRepositorio estende JpaRepository<Role, Long>
+
+-> models define dois modelos principais para autenticação (Usuario) e autorização (Role). Eles têm relacionamento muitos-para-muitos.
+
+-> Também temos application.properties para configurar Spring Datasource, Spring Data JPA e propriedades do aplicativo (como string secreta JWT ou tempo de expiração do token).
+
+-> Importante verificar a versão das dependências compatíveis e adicionar no pom.xml.
 
 
 
