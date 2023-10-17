@@ -1,6 +1,4 @@
-# apiserve
-Api criada com: 
-
+# Interface de Programação de Aplicação (API) criada com: 
 - Java 17
 - Spring boot: v3.1.4  
 - Maven  
@@ -8,6 +6,10 @@ Api criada com:
 - MSQL  
 - Lombok (minimizar o uso de código repetitivo)  
 - Spring Tool Suit 4 Launcher
+
+- Interface com a responsabilidade de conectar duas plataformas, permitindo que se comuniquem com agilidade a trocar informações. O repositório API-FRONT consome este serviço através de ENDPOINT com permissão da configuração do Cors.
+- Métodos: GET, PUT, POST, DELETE, OPTIONS, HEAD
+- Cabeçalhos: Origin, X-Requested-With, Content-Type, Authorization, Accept, no-auth
 
 - Padrão de projetos: Data Transfer Object - DTO, Transfer Object para o transporte de dados entre diferentes componentes de um sistema, diferentes instâncias ou processos de um sistema distribuído ou diferentes sistemas via serialização.
   
