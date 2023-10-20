@@ -24,7 +24,7 @@ import jakarta.validation.constraints.Positive;
 @Component
 @Validated
 @RestController
-@RequestMapping("/api/pessoas")
+@RequestMapping("/api/auth")
 public class PessoaControle {
 
 	private PessoaService pessoaService;
@@ -39,14 +39,15 @@ public class PessoaControle {
         return pessoaService.list();
     }
 
-    @GetMapping("/{codigo}")
-    @PreAuthorize("hasAnyRole('Admin','Usuario')")
+    
+    @GetMapping("/pessoa/{codigo}")
+    //@PreAuthorize("hasAnyRole('Admin','Usuario')")
     public PessoaDTO findById(@PathVariable("codigo") @NotNull @Positive Long identificador) {
         return pessoaService.findById(identificador);
     }
 
     @PostMapping("/criar-pessoa")
-    @PreAuthorize("hasAnyRole('Admin')")
+    //@PreAuthorize("hasAnyRole('Admin')")
     @ResponseStatus(code = HttpStatus.CREATED)
     public PessoaDTO criar(@RequestBody @Valid @NotNull PessoaDTO pessoa) {
         return pessoaService.criar(pessoa);

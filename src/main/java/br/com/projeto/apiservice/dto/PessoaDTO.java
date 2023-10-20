@@ -7,6 +7,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record PessoaDTO(
 	Long codigo,
-	@NotBlank @NotNull @Length(min = 20, max = 200) String nome,
+	@NotBlank @NotNull @Length(min = 5, max = 200) String nome,
 	@NotNull String cpf) {
 }
