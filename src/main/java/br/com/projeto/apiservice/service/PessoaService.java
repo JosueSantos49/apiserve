@@ -47,4 +47,18 @@ public class PessoaService {
 		return pessoaMapper.toDTO(pessoaRepositorio.save(pessoaMapper.toEntity(pessoa)));
 	}
 	
+	public PessoaDTO editar(@NotNull @Positive Long codigo, @NotNull @Valid PessoaDTO pessoa){
+        return pessoaRepositorio.findById(codigo)
+        		.map(registroEncontrado -> {
+        			registroEncontrado.setNome(pessoa.nome());
+        			registroEncontrado.setCpf(pessoa.cpf());
+        			return pessoaMapper.toDTO(pessoaRepositorio.save(registroEncontrado));        			
+        		}).orElseThrow(() -> new RegistroNaoEncontradoExcecao(codigo));
+    }
+	
+	public void remover(@PathVariable @NotNull @Positive long codigo){    	
+    	pessoaRepositorio.delete(pessoaRepositorio.findById(codigo)
+    				.orElseThrow(() -> new RegistroNaoEncontradoExcecao(codigo)));   	
+    }
+	
 }
